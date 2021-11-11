@@ -1,10 +1,10 @@
 * Fall 2021 - Lab 10
 
-* Last name:
+* Last name: Poon
 
-* First name:
+* First name: Anthony
 
-* GitHub username:
+* GitHub username: anthonypoon12
 
 * Notes:
 
