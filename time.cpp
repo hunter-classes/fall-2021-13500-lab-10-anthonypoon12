@@ -11,3 +11,14 @@ int minutesUntil(Time earlier, Time later){
         return minutesSinceMidnight(earlier) - minutesSinceMidnight(later);
     return minutesSinceMidnight(later) - minutesSinceMidnight(earlier);
 }
+Time addMinutes(Time time0, int min){
+    Time output = {time0.h,time0.m};
+    output.m += min;
+    if (output.m>=60 || output.m<0){
+        output.h+=output.m/60;
+        output.m = output.m % 60;
+    }
+    if (output.h>=24)
+        output.h = output.h % 24;
+    return output;
+}
