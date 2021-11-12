@@ -1,5 +1,6 @@
 #include <iostream>
 #include "time.h"
+#include "movie.h"
 void printTime(Time time) {
     std::cout << time.h << ":" << time.m;
 }
@@ -20,5 +21,9 @@ Time addMinutes(Time time0, int min){
     }
     if (output.h>=24)
         output.h = output.h % 24;
+    return output;
+}
+std::string getTimeSlot(){
+    std::string output="";
     return output;
 }
