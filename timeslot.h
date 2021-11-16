@@ -6,3 +6,4 @@ public:
     Movie movie;     // what movie
     Time startTime;  // when it starts
 };
+std::string getTimeSlot(TimeSlot ts);
