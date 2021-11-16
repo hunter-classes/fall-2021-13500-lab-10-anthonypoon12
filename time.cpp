@@ -40,14 +40,14 @@ std::string getTimeSlot(TimeSlot ts){
     std::string output="";
     output+=ts.movie.title + " ";
     output += getGenre(ts.movie);
-    output += "( " + ts.movie.duration;
-    output+= ") ";
-    output += "[ starts at " + ts.startTime.h;
-    output+= ":" + ts.startTime.m;
+    output += " (" + std::to_string(ts.movie.duration);
+    output+= " min) ";
+    output += "[starts at " + std::to_string(ts.startTime.h);
+    output+= ":" + std::to_string(ts.startTime.m);
     output+= ",";
     Time end = addMinutes(ts.startTime, ts.movie.duration);
-    output+="ends by " + end.h;
-    output += ":" + end.m;
+    output+=" ends by " + std::to_string(end.h);
+    output += ":" + std::to_string(end.m);
     output += "]";
     return output;
 }
