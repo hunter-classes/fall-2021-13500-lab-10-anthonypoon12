@@ -1,7 +1,8 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "time.h"
-
+#include "timeslot.h"
+#include "movie.h"
 TEST_CASE("minutes since midnight"){
     CHECK(minutesSinceMidnight({0,0})==0);
     CHECK(minutesSinceMidnight({1,0})==60);
@@ -24,4 +25,19 @@ TEST_CASE("addminutes"){
     CHECK(addMinutes(three,60).m==59);
     CHECK(addMinutes(one,-90).h==0);
     CHECK(addMinutes(one,-90).m==0);
+}
+TEST_CASE("getTimeSlot"){
+    Time dummy = {0,0};
+    Movie movie1 = {"Back to the Future", Genre::COMEDY, 116};
+    Movie movie2 = {"Black Panther", Genre::ACTION, 134};
+    TimeSlot morning = {movie1, {9, 15}};  
+    TimeSlot daytime = {movie2, {12, 15}}; 
+    TimeSlot evening = {movie2, {16, 45}};
+    std::string test1 = "Back to the Future COMEDY (116 min) [starts at 9:15, ends by 11:11]";
+    std::string test2 = "Black Panther ACTION (134 min) [starts at 12:15, ends by 14:29]";
+    std::string test3 = "Black Panther ACTION (134 min) [starts at 16:45, ends by 18:59]";
+    
+    CHECK(getTimeSlot(morning) == test1);
+    CHECK(getTimeSlot(daytime) == test2);
+    CHECK(getTimeSlot(evening) == test3);
 }
