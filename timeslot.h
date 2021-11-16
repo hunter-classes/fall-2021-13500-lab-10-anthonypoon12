@@ -7,3 +7,4 @@ public:
     Time startTime;  // when it starts
 };
 std::string getTimeSlot(TimeSlot ts);
+TimeSlot scheduleAfter(TimeSlot ts, Movie nextMovie);
