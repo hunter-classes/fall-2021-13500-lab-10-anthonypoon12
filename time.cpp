@@ -6,11 +6,12 @@ void printTime(Time time) {
     std::cout << time.h << ":" << time.m;
 }
 int minutesSinceMidnight(Time time){
-    return time.h*60 + time.m;
+    int hours = time.h%24;
+    int min = time.m%60;
+    hours += time.m/60;
+    return hours*60 + min;
 }
 int minutesUntil(Time earlier, Time later){
-    if (minutesSinceMidnight(earlier)>minutesSinceMidnight(later))
-        return minutesSinceMidnight(earlier) - minutesSinceMidnight(later);
     return minutesSinceMidnight(later) - minutesSinceMidnight(earlier);
 }
 Time addMinutes(Time time0, int min){
@@ -54,4 +55,27 @@ std::string getTimeSlot(TimeSlot ts){
 TimeSlot scheduleAfter(TimeSlot ts, Movie nextMovie){
     TimeSlot output = {nextMovie,addMinutes(ts.startTime, ts.movie.duration)};
     return output;
+}
+bool timeOverlap(TimeSlot ts1, TimeSlot ts2){
+    Time start1 = ts1.startTime;
+    Time start2 = ts2.startTime;
+    Time end1 = addMinutes(ts1.startTime, ts1.movie.duration);
+    Time end2 = addMinutes(ts2.startTime, ts2.movie.duration);
+    if (minutesSinceMidnight(start1)==minutesSinceMidnight(start2))
+        return true;
+    if (minutesSinceMidnight(end1)==minutesSinceMidnight(end2))
+        return true;
+    if (minutesSinceMidnight(end1)<minutesSinceMidnight(start1)){
+        if (!(minutesSinceMidnight(start2)>minutesSinceMidnight(end1) && minutesSinceMidnight(start2)<minutesSinceMidnight(start1)))
+            return true;
+        if (!(minutesSinceMidnight(end2)>minutesSinceMidnight(end1) && minutesSinceMidnight(end2)<minutesSinceMidnight(start1)))
+            return true;
+    }
+    else{
+        if ((minutesSinceMidnight(start2)<minutesSinceMidnight(end1) && minutesSinceMidnight(start2)>minutesSinceMidnight(start1)))
+            return true;
+        if ((minutesSinceMidnight(end2)<minutesSinceMidnight(end1) && minutesSinceMidnight(end2)>minutesSinceMidnight(start1)))
+            return true;
+    }
+    return false;
 }
