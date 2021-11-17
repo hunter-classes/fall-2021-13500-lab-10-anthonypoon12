@@ -13,12 +13,12 @@ TEST_CASE("minutes since midnight"){
     CHECK(minutesSinceMidnight({0,0})==0);
     CHECK(minutesSinceMidnight({1,0})==60);
     CHECK(minutesSinceMidnight({12,50})==12*60+50);
-    CHECK(minutesSinceMidnight({42,12})==42*60+12);
+    CHECK(minutesSinceMidnight({42,12})==18*60+12);
 }
 TEST_CASE("minutesUntil"){
-    CHECK(minutesUntil({0,0},{11,30}));
-    CHECK(minutesUntil({11,30},{8,30}));
-    CHECK(minutesUntil({11,30},{20,30}));
+    CHECK(minutesUntil({0,0},{11,30})==11*60 + 30);
+    CHECK(minutesUntil({11,30},{8,30})== (8*60 + 30) - (11*60 + 30));
+    CHECK(minutesUntil({11,30},{20,30})== (20*60 + 30) - (11*60 + 30));
 }
 TEST_CASE("addminutes"){
     Time one = {1,30};
@@ -49,4 +49,26 @@ TEST_CASE("scheduleAfter"){
     CHECK(scheduleAfter(morning, movie2).movie.title == movie2.title);
     CHECK(scheduleAfter(morning, movie2).startTime.h == 11);
     CHECK(scheduleAfter(morning, movie2).startTime.m == 11);
+}
+TEST_CASE("overlap"){
+    Movie movie3 = {"Hello", Genre::ACTION, 120};
+    TimeSlot overlaptest = {movie3, {8, 0}};
+    Movie movie4 = {"Hi", Genre::ACTION, 120};
+    TimeSlot overlaptest2 = {movie4, {9, 0}};
+    Movie movie5 = {"Bye", Genre::ACTION, 120};
+    TimeSlot overlaptest3 = {movie5, {10, 0}};
+    Movie movie6 = {"B", Genre::ACTION, 120};
+    TimeSlot overlaptest4 = {movie6, {23, 0}};
+    Movie movie7 = {"A", Genre::ACTION, 120};
+    TimeSlot overlaptest5 = {movie7, {0, 10}};
+    Movie movie8 = {"D", Genre::ACTION, 0};
+    TimeSlot overlaptest6 = {movie8, {10, 10}};
+    Movie movie9 = {"C", Genre::ACTION, 120};
+    TimeSlot overlaptest7 = {movie9, {10, 10}};
+    CHECK(timeOverlap(overlaptest, overlaptest2)==true);
+    CHECK(timeOverlap(overlaptest2, overlaptest)==true);
+    CHECK(timeOverlap(overlaptest3, overlaptest)==false);
+    CHECK(timeOverlap(overlaptest5, overlaptest4)==true);
+    CHECK(timeOverlap(overlaptest5, overlaptest4)==true);
+    CHECK(timeOverlap(overlaptest6, overlaptest7)==true);
 }
