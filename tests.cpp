@@ -1,3 +1,11 @@
+/*
+Author: Anthony Poon
+Course: CSCI-135
+Instructor: Zamansky/ Tong Yi
+Assignment: Lab 10 tests
+
+tests for Lab 10
+*/
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "time.h"

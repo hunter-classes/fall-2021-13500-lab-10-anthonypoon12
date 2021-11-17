@@ -1,3 +1,11 @@
+/*
+Author: Anthony Poon
+Course: CSCI-135
+Instructor: Zamansky/ Tong Yi
+Assignment: Lab 10 main
+
+Main file for Lab 10
+*/
 #include <iostream>
 #include "time.h"
 #include "movie.h"
